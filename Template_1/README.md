@@ -1,54 +1,258 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🏥 MedivueGreen – Full Stack Healthcare Provider Search App
 
-Currently, two official plugins are available:
+A modern full-stack healthcare platform that allows users to find doctors and specialists. Supports filtering by specialty, location, gender, insurance, and more.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📌 Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. [Project Overview](#project-overview)
+2. [Project Structure](#project-structure)
+3. [Getting Started (Dev Setup)](#getting-started-dev-setup)
+4. [Backend Guide (Flask)](#backend-guide-flask)
+5. [Frontend Guide (React + Vite)](#frontend-guide-react--vite)
+6. [Tailwind Configuration](#tailwind)
+7. [Docker Guide](#docker)
+8. [Environment Configuration](#environ)
+---
+<a id="project-overview"></a>
+## 📖 Project Overview
+
+**MedivueGreen** is a full-stack healthcare search engine that allows patients to:
+
+- Search for providers
+- View provider details, addresses, ratings, languages, and plans
+- Filter search by specialty, gender, insurance, and more
+- Admin portal for management (in progress)
+
+**Tech Stack:**
+- **Frontend:** React, TypeScript, Vite
+- **Backend:** Python, Flask, SQLAlchemy
+- **Database:** PostgreSQL 
+- **Deployment:** Docker + docker-compose
+
+---
+<a id="project-structure"></a>
+## 📁 Project Structure
+
+```
+MedivueGreen/
+│
+├── backend/ # Flask Backend
+│ ├── app.py # Main Flask app
+│ ├── models.py # Database models
+│ ├── config.py # Configuration
+│ ├── requirements.txt # Python dependencies
+│ ├── Dockerfile # Backend Dockerfile
+│ └── .dockerignore
+│
+├── src/ # React + TypeScript + Vite Frontend
+│ ├── assets/logo.png
+│ ├── admin/pages/Configure.tsx
+│ ├── admin/pages/LoginPage.tsx
+│ ├── admin/pages/SignupPage.tsx
+│ ├── app/components/FilterSidebar.tsx
+│ ├── app/components/Footer.tsx
+│ ├── app/components/Header.tsx
+│ ├── app/components/ProviderCard.tsx
+│ ├── app/components/ProviderProfile.tsx
+│ ├── app/components/SearchBar.tsx
+│ ├── hooks/useProviderSearch.ts
+│ ├── types/provider.ts
+│ ├── config/uiConfig.ts
+│ ├── App.tsx
+│ ├── main.tsx
+│ ├── index.css
+│ ├── Dockerfile # Frontend Dockerfile (Vite Dev)
+│ └── .dockerignore
+│
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── tailwind.config.js
+└── docker-compose.yml # Dev setup with hot reload
+
+
+
+```
+
+---
+<a id="getting-started-dev-setup"></a>
+## 🚀 Getting Started (Dev Setup)
+
+### 🔧 Prerequisites
+
+- Docker & Docker Compose installed
+- Python 3.10+ (for local backend)
+- Node.js 18+ (for frontend)
+
+---
+
+### 🐳 Start Using Docker Compose
+
+```bash
+docker-compose up --build
+```
+
+Runs:
+- Flask API at `http://localhost:5000`
+- React frontend at `http://localhost:5173`
+
+---
+
+### 🧪 Manual Setup (without Docker)
+
+#### 1. Backend
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate        # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+python app.py
+```
+
+#### 2. Frontend
+
+```bash
+cd src
+npm install
+npm run dev
+```
+
+---
+<a id="backend-guide-flask"></a>
+## 🔧 Backend Guide (Flask)
+
+### 🔗 API Routes
+
+| Route                     | Method | Description                              |
+|--------------------------|--------|------------------------------------------|
+| `/`                      | GET    | Health check                             |
+| `/api/providers`         | GET    | All providers                            |
+| `/config`                | GET    |Get the latest brand logo config                     |
+| `/config`                |POST, PUT    | Create or update brand logo config       |
+
+---
+<a id="frontend-guide-react--vite"></a>
+## 🎨 Frontend Guide (React + Vite)
+
+### 🔧 Components
+
+| File                         | Role                             |
+|-----------------------------|----------------------------------|
+| `SearchBar.tsx`             | Search input bar                 |
+| `ProviderCard.tsx`          | Display provider summary         |
+| `ProviderProfile.tsx`       | Full provider details            |
+| `FilterSidebar.tsx`         | Search filters                   |
+| `useProviderSearch.ts`      | Hook for calling backend search  |
+
+<a id="tailwind"></a>
+## 🎨 Tailwind Configuration
+
+Tailwind CSS is already integrated with **Vite + React**.
+
+---
+
+### 1️⃣ `tailwind.config.js`
 
 ```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
+  theme: {
+    extend: {
+      colors: {
+        primary: '#0ea5e9',  // Sky blue for healthcare branding
+        secondary: '#10b981', // Green accents
+      },
+      borderRadius: {
+        '2xl': '1rem',
+      },
     },
   },
-})
+  plugins: [],
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2️⃣ `index.css`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+/* Custom smooth transitions */
+* {
+  @apply transition-all duration-200;
+}
 ```
+
+## 🧪 Running Locally
+
+```bash
+cd src
+npm run dev
+```
+
+Frontend runs on:  
+📍 `http://localhost:5173`
+
+```bash
+cd backend
+python app.py
+```
+
+Backend runs on:  
+📍 `http://localhost:5000`
+
+
+
+---
+<a id="docker"></a>
+## 🐳 Docker Guide
+
+### docker-compose.yml Highlights
+
+```yaml
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+  frontend:
+    build: ./src
+    ports:
+      - "5173:5173"
+```
+
+### Run All Services
+
+```bash
+docker-compose up --build
+```
+
+---
+<a id="environ"></a>
+## ⚙️ Environment Configuration
+
+### 🔧 `backend/config.py`
+
+```python
+import os
+SQLALCHEMY_DATABASE_URI = 'postgresql://<username>:<password>@localhost/<dbname>'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+```
+
+
+
+
+
+
+
