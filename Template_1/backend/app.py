@@ -83,27 +83,7 @@ def get_first_10_providers():
 
     return jsonify(result), 200
 
-##########################
-# ✅ Get Provider by ID Route
-##########################
-@app.route("/api/providers/<string:provider_id>", methods=["GET"])
-def get_provider_by_id(provider_id):
-    provider = ProviderInfo.query.get(provider_id)
-    if not provider:
-        return jsonify({"error": "Provider not found"}), 404
 
-    return jsonify({
-        "ProviderID": provider.ProviderID,
-        "firstName": provider.ProviderFirstName,
-        "middleInitial": provider.ProviderMiddleInitial,
-        "lastName": provider.ProviderLastName,
-        "gender": provider.ProviderGender,
-        "age": provider.ProviderAge,
-        "npi": provider.ProviderNPI,
-        "type": provider.ProviderType,
-        "raceEthnicity": provider.ProviderRaceEthnicity,
-        "dob": provider.ProviderDOB.isoformat() if provider.ProviderDOB else None,
-    }), 200
 ######################
 # ✅ Brand & Logo Config
 ######################
