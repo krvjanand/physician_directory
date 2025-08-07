@@ -83,7 +83,7 @@ MedivueGreen/
 ---
 
 <a id="postgres"></a>
-## 📄 # PostgreSQL Setup Guide 
+## 📄 PostgreSQL Setup Guide 
 
 - This guide outlines the steps to set up a PostgreSQL database using SQL commands from the `postgre.sql` file and import CSV files into the database from the `Postgres_DB` directory.
 
