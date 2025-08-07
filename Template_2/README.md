@@ -10,12 +10,13 @@ A modern full-stack healthcare platform that allows users to find doctors and sp
 
 1. [Project Overview](#project-overview)
 2. [Project Structure](#project-structure)
-3. [Getting Started (Dev Setup)](#getting-started-dev-setup)
-4. [Backend Guide (Flask)](#backend-guide-flask)
-5. [Frontend Guide (React + Vite)](#frontend-guide-react--vite)
-6. [Tailwind Configuration](#tailwind)
-7. [Docker Guide](#docker)
-8. [Environment Configuration](#environ)
+3. [PostgreSQL Setup](#postgres)
+4. [Getting Started (Dev Setup)](#getting-started-dev-setup)
+5. [Backend Guide (Flask)](#backend-guide-flask)
+6. [Frontend Guide (React + Vite)](#frontend-guide-react--vite)
+7. [Tailwind Configuration](#tailwind)
+8. [Docker Guide](#docker)
+9. [Environment Configuration](#environ)
 ---
 <a id="project-overview"></a>
 ## 📖 Project Overview
@@ -40,6 +41,7 @@ A modern full-stack healthcare platform that allows users to find doctors and sp
 ```
 OnlyMedChoice/
 │
+├── Postgres_DB/ # Database
 ├── backend/ # Flask Backend
 │ ├── app.py # Main Flask app
 │ ├── models.py # Database models
@@ -77,7 +79,12 @@ OnlyMedChoice/
 
 
 ```
+---
 
+<a id="postgres"></a>
+## 📄 PostgreSQL Setup Guide 
+
+- This guide outlines the steps to set up a PostgreSQL database using SQL commands from the `postgre.sql` file and import CSV files into the database from the `Postgres_DB` directory.
 ---
 <a id="getting-started-dev-setup"></a>
 ## 🚀 Getting Started (Dev Setup)
