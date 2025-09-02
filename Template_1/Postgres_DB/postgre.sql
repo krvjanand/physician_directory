@@ -4,6 +4,7 @@ CREATE TABLE "Provider_Info" (
   "ProviderMiddleInitial" varchar,
   "ProviderLastName" varchar,
   "ProviderNameSuffix" varchar,
+  "providerimage" varchar,
   "ProviderType" varchar,
   "ProviderGender" varchar,
   "ProviderRaceEthnicity" varchar,
